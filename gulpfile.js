@@ -29,15 +29,6 @@ gulp.task('browser-sync', function() {
 });
 
 
-// Compiling pug in html
-gulp.task('pug', function() {
-	return gulp.src(['src/pug/**/*.pug', '!src/pug/**/_*.pug'])
-		.pipe(pug({pretty: '\t'}))
-		.on("error", notify.onError())
-		.pipe(gulp.dest('app'));
-});
-
-
 // Compiling sass in css with adding vendor prefixes and compressing css
 gulp.task('sass', function() {
 	return gulp.src('src/scss/**/*.scss')
@@ -54,8 +45,8 @@ gulp.task('sass', function() {
 // compresses and add it into app/js
 gulp.task('scripts', function() {
 	return gulp.src([
-		// 'app/libs/jquery/dist/jquery.min.js',
-		'src/js/*.js', // Always at the end
+		'src/js/lib/*.js',
+		'src/js/*.js' // Always at the end
 		])
 	.pipe(concat('scripts.min.js'))
 	.pipe(uglify())
@@ -83,7 +74,7 @@ gulp.task('sprite', function() {
 	.pipe(spritesmith({
 		imgName: 'sprite.png',
 		cssName: '_sprite.scss',
-		imgPath: '/img/sprite.png',
+		imgPath: '../img/sprite.png',
 		cssFormat: 'scss',
 		padding: 16
 	}))
